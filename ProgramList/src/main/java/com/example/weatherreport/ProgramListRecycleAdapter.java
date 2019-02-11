@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -59,6 +62,12 @@ public class ProgramListRecycleAdapter extends RecyclerView.Adapter {
                 asyncHTTPConnection.setHttpResultListener(new HTTPResultListener() {
                     @Override
                     public void getHTTPResult(Object o) {
+
+                        try {
+                            MainActivity.programInfoJSON = new JSONObject(o.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
                         System.out.println(o);
                         PostOffice postOffice = new PostOffice();

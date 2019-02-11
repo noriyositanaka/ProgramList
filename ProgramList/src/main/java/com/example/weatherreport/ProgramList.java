@@ -10,8 +10,9 @@ public class ProgramList {
     private static JSONObject programListJSON;
     private static JSONObject nowPlayingJSON;
     private static JSONObject programInfoJSON;
-    private static ArrayList arrayList;
-    private static ArrayList testArrayList;
+    private static ArrayList arrayListProgramList;
+    private static ArrayList arrayListProgramInfo  ;
+
 
     public static void setNowPlayingJSON(JSONObject nowPlayingJSON) {
         ProgramList.nowPlayingJSON = nowPlayingJSON;
@@ -25,12 +26,12 @@ public class ProgramList {
         ProgramList.programListJSON = programListJSON;
     }
 
-    public static void setArrayList(ArrayList arrayList) {
-        ProgramList.arrayList = arrayList;
+    public static void setArrayListProgramList(ArrayList arrayListProgramList) {
+        ProgramList.arrayListProgramList = arrayListProgramList;
     }
 
-    public static void setTestArrayList(ArrayList testArrayList) {
-        ProgramList.testArrayList = testArrayList;
+    public static void setArrayListProgramInfo(ArrayList arrayListProgramInfo) {
+        ProgramList.arrayListProgramInfo = arrayListProgramInfo;
     }
 
     public static JSONObject getNowPlayingJSON() {
@@ -45,11 +46,12 @@ public class ProgramList {
         return programListJSON;
     }
 
-    public static ArrayList getArrayList() {
-        return arrayList;
+    public static ArrayList getArrayListProgramList() {
+        return arrayListProgramList;
     }
 
-    public static ArrayList getTestArrayList() {
-        return testArrayList;
+    public static ArrayList getArrayListProgramInfo() {
+        return arrayListProgramInfo;
     }
 }
+

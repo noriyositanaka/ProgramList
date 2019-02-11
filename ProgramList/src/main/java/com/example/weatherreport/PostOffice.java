@@ -3,6 +3,7 @@ package com.example.weatherreport;
 import android.content.SyncAdapterType;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.FragmentManager;
 
 
 public class PostOffice extends Handler {
@@ -10,7 +11,8 @@ public class PostOffice extends Handler {
     static ProgramListRecycleAdapter programListRecycleAdapter;
 
 
-    private PostOfficeMessenger postOfficeMessenger;
+    private static PostOfficeMessenger postOfficeMessenger;
+
 
     final public int RECEIVED_PROGRAM_LIST = 1 ;
     final public int RECEIVED_PROGRAM_INFO = 2;
@@ -27,6 +29,7 @@ public class PostOffice extends Handler {
                 postOfficeMessenger.onProgramListReceived();
                 break;
             case RECEIVED_PROGRAM_INFO:
+
                 postOfficeMessenger.onProgramInfoReceived();
                 break;
 
