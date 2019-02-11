@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
+import java.util.concurrent.TimeoutException;
 
 public class ProgramListRecycleAdapter extends RecyclerView.Adapter {
 
@@ -50,7 +51,10 @@ public class ProgramListRecycleAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View v) {
 
-            }
+                TextView t = v.findViewById(R.id.id);
+                String s = t.getText().toString();
+                System.out.println(s);
+                }
         });
         return new ProgramListViewHolder(view) {
             @Override
@@ -89,10 +93,12 @@ public class ProgramListRecycleAdapter extends RecyclerView.Adapter {
         TextView title = viewHolder.itemView.findViewById(R.id.text_title);
         TextView start_time = viewHolder.itemView.findViewById(R.id.text_start_time);
         TextView end_time = viewHolder.itemView.findViewById(R.id.text_end_time);
+        TextView id = viewHolder.itemView.findViewById(R.id.id);
 
         title.setText(arrayList.get(i).get("title"));
         start_time.setText(s);
         end_time.setText(ee);
+        id.setText(arrayList.get(i).get("id"));
 
 
     }

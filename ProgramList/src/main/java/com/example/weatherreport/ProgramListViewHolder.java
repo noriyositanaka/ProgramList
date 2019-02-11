@@ -12,7 +12,7 @@ public class ProgramListViewHolder extends RecyclerView.ViewHolder {
     public TextView title;
     public TextView start_time;
     public TextView end_time;
-
+    public TextView id;
     View  v;
 
 
