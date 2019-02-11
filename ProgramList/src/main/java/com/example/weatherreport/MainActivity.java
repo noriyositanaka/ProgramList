@@ -92,15 +92,13 @@ public class MainActivity extends AppCompatActivity implements ProgramtListFragm
 
 
                     //プログラム受信が終了したら、PostOfficeにmsgを通知
-                    final ProgramtListFragment programtListFragment = new ProgramtListFragment();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.containerForFragment, programtListFragment).commit();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         });
-        asyncHTTPConnection.execute();
+        asyncHTTPConnection.execute(AsyncHTTPConnection.COMMAND_GET_PROGRAM_LIST);
 
 
 
@@ -111,6 +109,15 @@ public class MainActivity extends AppCompatActivity implements ProgramtListFragm
     protected void onResume() {
         super.onResume();
 
+        postOffice.setPostOfficeMessenger(new PostOfficeMessenger() {
+            @Override
+            public void onProgramListReceived() {
+
+                final ProgramtListFragment programtListFragment = new ProgramtListFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.containerForFragment, programtListFragment).commit();
+
+            }
+        });
 
     }
 

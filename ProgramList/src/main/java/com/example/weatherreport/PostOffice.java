@@ -22,9 +22,8 @@ public class PostOffice extends Handler {
     public void handleMessage(Message msg) {
         switch(msg.arg1){
             case RECEIVED_PROGRAM_LIST:
+                postOfficeMessenger.onProgramListReceived();
 
-                ProgramtListFragment programtListFragment=new ProgramtListFragment();
-//                programListRecycleAdapter.notifyDataSetChanged();
                 break;
 
 

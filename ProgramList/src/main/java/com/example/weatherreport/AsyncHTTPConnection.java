@@ -15,8 +15,18 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+
 public class AsyncHTTPConnection extends AsyncTask {
     HTTPResultListener httpResultListener;
+
+    static final String COMMAND_GET_PROGRAM_LIST = "GET_PROGRAM_LIST";
+    static final String COMMAND_GET_PROGRAM_INFO = "GET_PROGRAM_INFO";
+
+    static String FILE_PATH_BASE = "/v2/pg/list/130/g1/";
+
+
+    static String FILE_PATH_JSON_KEY = ".json?key=SAOeQx26aasTAPfEHnWANAY9yYbyTBkQ";
 
     public void setHttpResultListener(HTTPResultListener httpResultListener) {
         this.httpResultListener = httpResultListener;
@@ -24,6 +34,7 @@ public class AsyncHTTPConnection extends AsyncTask {
 
     @Override
     protected Object doInBackground(Object[] objects) {
+
 
         Date today = new Date();
         String stringToday;
@@ -36,8 +47,22 @@ public class AsyncHTTPConnection extends AsyncTask {
         HttpURLConnection httpURLConnection;
         BufferedReader bufferedReader;
         StringBuilder stringBuilder = new StringBuilder();
+
+        String FILE_PATH=null;
+
+        switch((String)objects[0]){
+            case COMMAND_GET_PROGRAM_LIST:
+                FILE_PATH= FILE_PATH_BASE + stringToday + FILE_PATH_JSON_KEY;
+                break;
+            case COMMAND_GET_PROGRAM_INFO:
+
+                break;
+
+
+        }
+
         try {
-            url = new URL("HTTP","api.nhk.or.jp","/v2/pg/list/130/g1/"+stringToday+".json?key=SAOeQx26aasTAPfEHnWANAY9yYbyTBkQ");
+            url = new URL("HTTP","api.nhk.or.jp",FILE_PATH);
             httpURLConnection = (HttpURLConnection)url.openConnection();
             httpURLConnection.setRequestMethod("GET");
             httpURLConnection.connect();

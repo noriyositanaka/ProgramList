@@ -53,7 +53,6 @@ public class ProgramListRecycleAdapter extends RecyclerView.Adapter {
 
                 TextView t = v.findViewById(R.id.id);
                 String s = t.getText().toString();
-                System.out.println(s);
                 }
         });
         return new ProgramListViewHolder(view) {
