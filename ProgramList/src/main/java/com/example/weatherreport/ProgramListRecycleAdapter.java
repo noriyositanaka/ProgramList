@@ -2,6 +2,7 @@ package com.example.weatherreport;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Message;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
@@ -53,6 +54,23 @@ public class ProgramListRecycleAdapter extends RecyclerView.Adapter {
 
                 TextView t = v.findViewById(R.id.id);
                 String s = t.getText().toString();
+
+                AsyncHTTPConnection asyncHTTPConnection = new AsyncHTTPConnection();
+                asyncHTTPConnection.setHttpResultListener(new HTTPResultListener() {
+                    @Override
+                    public void getHTTPResult(Object o) {
+
+                        System.out.println(o);
+                        PostOffice postOffice = new PostOffice();
+                        Message msg = new Message();
+                        msg.arg1 = postOffice.RECEIVED_PROGRAM_INFO;
+                        postOffice.sendMessage(msg);
+
+                    }
+                });
+
+                asyncHTTPConnection.execute(AsyncHTTPConnection.COMMAND_GET_PROGRAM_INFO,s);
+
                 }
         });
         return new ProgramListViewHolder(view) {

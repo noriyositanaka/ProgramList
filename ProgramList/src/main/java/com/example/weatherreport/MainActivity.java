@@ -117,6 +117,11 @@ public class MainActivity extends AppCompatActivity implements ProgramtListFragm
                 getSupportFragmentManager().beginTransaction().replace(R.id.containerForFragment, programtListFragment).commit();
 
             }
+
+            @Override
+            public void onProgramInfoReceived() {
+
+            }
         });
 
     }
