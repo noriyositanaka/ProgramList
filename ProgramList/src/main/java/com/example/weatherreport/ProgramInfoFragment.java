@@ -1,8 +1,10 @@
 package com.example.weatherreport;
 
+import android.arch.lifecycle.ViewModelProvider;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +33,17 @@ import java.util.Iterator;
  * create an instance of this fragment.
  */
 public class ProgramInfoFragment extends Fragment {
+
+    private ProgramInfoViewModel programInfoViewModel;
+
+
+
+    public ProgramInfoViewModel getProgramInfoViewModel() {
+        return programInfoViewModel;
+    }
+
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -154,6 +167,11 @@ public class ProgramInfoFragment extends Fragment {
 
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
