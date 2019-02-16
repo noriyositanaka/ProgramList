@@ -22,7 +22,8 @@
         android:layout_marginTop="2dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="2dp"
-        android:scrollbarAlwaysDrawHorizontalTrack="false"
-        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarThumbVertical="@android:color/black"
+        android:scrollbars="vertical"
+        android:verticalScrollbarPosition="right"
         tools:listitem="@layout/program" />
 </LinearLayout>
