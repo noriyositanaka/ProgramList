@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginLeft="4dp"
     android:layout_marginTop="2dp"
     android:layout_marginRight="4dp"
@@ -12,7 +12,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:scrollbarAlwaysDrawVerticalTrack="true"
-    tools:context=".ProgramtListFragment">
+    tools:context=".ProgramListFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleView"

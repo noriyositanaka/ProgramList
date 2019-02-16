@@ -1,8 +1,12 @@
 package com.example.weatherreport;
 
 import android.content.Context;
+import android.icu.text.SymbolTable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,19 +15,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ProgramtListFragment.OnFragmentInteractionListener} interface
+ * {@link ProgramListFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ProgramtListFragment#newInstance} factory method to
+ * Use the {@link ProgramListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProgramtListFragment extends Fragment {
+public class ProgramListFragment extends Fragment {
 
+    private Parcelable listState;
+    private String KEY_LIST_STATE = "LIST_STATE";
 
     PostOffice postOffice = new PostOffice();
     static ProgramListRecycleAdapter programListRecycleAdapter;
@@ -42,7 +49,7 @@ public class ProgramtListFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ProgramtListFragment() {
+    public ProgramListFragment() {
         // Required empty public constructor
     }
 
@@ -52,11 +59,11 @@ public class ProgramtListFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ProgramtListFragment.
+     * @return A new instance of fragment ProgramListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ProgramtListFragment newInstance(String param1, String param2) {
-        ProgramtListFragment fragment = new ProgramtListFragment();
+    public static ProgramListFragment newInstance(String param1, String param2) {
+        ProgramListFragment fragment = new ProgramListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -73,7 +80,6 @@ public class ProgramtListFragment extends Fragment {
         }
 
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -102,7 +108,47 @@ public class ProgramtListFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(savedInstanceState != null){
+            /*
+            savedInstance!=null
+            画面回転などで前回の状態が保存されているので、それを再現する
+             */
+            listState = savedInstanceState.getParcelable(KEY_LIST_STATE);
+            ((RecyclerView)getActivity().findViewById(R.id.recycleView)).getLayoutManager().onRestoreInstanceState(listState);
 
+        }else{
+            /*
+            savedInstance==null
+            前回の状態がない＝初回表示なので、現在の時間に合わせたポジションに移動する
+             */
+/*            RecyclerView v  = getActivity().findViewById(R.id.recycleView);
+            View vv = v.getChildAt(1);
+            Date Start = (Date)vv.getTag(R.id.program);
+            System.out.println(Start.toString());
+*/
+        }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (listState == null && MainActivity.programListJSON!=null) {
+            RecyclerView recyclerView = getActivity().findViewById(R.id.recycleView);
+
+            RecyclerView.Adapter adapter = recyclerView.getAdapter();
+            RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+
+            long id = adapter.getItemId(0);
+            int i = adapter.getItemCount();
+            System.out.println(i);
+
+
+             }
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -143,5 +189,14 @@ public class ProgramtListFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        RecyclerView recyclerView = getActivity().findViewById(R.id.recycleView);
+
+        listState = recyclerView.getLayoutManager().onSaveInstanceState();
+        outState.putParcelable(KEY_LIST_STATE,listState);
+ //       super.onSaveInstanceState(outState);
     }
 }

@@ -22,7 +22,7 @@ public class ProgramListViewHolder extends RecyclerView.ViewHolder {
         title = itemView.findViewById(R.id.text_title);
         start_time = itemView.findViewById(R.id.text_start_time);
         end_time = itemView.findViewById(R.id.text_end_time);
-
+        id = itemView.findViewById(R.id.id);
 
     }
 

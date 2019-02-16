@@ -18,9 +18,11 @@ public class AsyncHTTPConnection extends AsyncTask {
 
     static final String COMMAND_GET_PROGRAM_LIST = "GET_PROGRAM_LIST";
     static final String COMMAND_GET_PROGRAM_INFO = "GET_PROGRAM_INFO";
+    static final String COMMAND_GET_NOW_ON_AIR = "GET_NOW_ON_AIR";
 
     static String FILE_PATH_LIST_BASE = "/v2/pg/list/130/g1/";
     static String FILE_PATH_INFO_BASE = "/v2/pg/info/130/g1/";
+    static String FILE_PATH_NOW_ON_AIR = "/v2/pg/now/130/g1";
 
 
     static String FILE_PATH_JSON_KEY = ".json?key=SAOeQx26aasTAPfEHnWANAY9yYbyTBkQ";
@@ -54,7 +56,8 @@ public class AsyncHTTPConnection extends AsyncTask {
             case COMMAND_GET_PROGRAM_INFO:
                 FILE_PATH= FILE_PATH_INFO_BASE + objects[1]+ FILE_PATH_JSON_KEY;
                 break;
-
+            case COMMAND_GET_NOW_ON_AIR:
+                FILE_PATH= FILE_PATH_NOW_ON_AIR + FILE_PATH_JSON_KEY;
 
         }
 

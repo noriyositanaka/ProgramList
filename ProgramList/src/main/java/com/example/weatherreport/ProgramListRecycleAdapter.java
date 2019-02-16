@@ -101,7 +101,7 @@ public class ProgramListRecycleAdapter extends RecyclerView.Adapter {
         String s = new String();
         String ee = new String();
 
-        Date Start, End;
+        Date Start = new Date(), End = new Date();
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
             Start = simpleDateFormat.parse(startTimeISO);
@@ -120,12 +120,16 @@ public class ProgramListRecycleAdapter extends RecyclerView.Adapter {
         TextView start_time = viewHolder.itemView.findViewById(R.id.text_start_time);
         TextView end_time = viewHolder.itemView.findViewById(R.id.text_end_time);
         TextView id = viewHolder.itemView.findViewById(R.id.id);
+        Date startTime = (Date)viewHolder.itemView.getTag(0);
+        Date endTime = (Date)viewHolder.itemView.getTag(1);
+
 
         title.setText(arrayList.get(i).get("title"));
         start_time.setText(s);
         end_time.setText(ee);
         id.setText(arrayList.get(i).get("id"));
-
+        viewHolder.itemView.setTag(R.id.program,Start);
+ //       viewHolder.itemView.setTag(1,End);
 
     }
 

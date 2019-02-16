@@ -3,6 +3,7 @@ package com.example.weatherreport;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ProgramList {
 
@@ -12,6 +13,8 @@ public class ProgramList {
     private static JSONObject programInfoJSON;
     private static ArrayList arrayListProgramList;
     private static ArrayList arrayListProgramInfo  ;
+    private static Date startTime;
+    private static Date endTime;
 
 
     public static void setNowPlayingJSON(JSONObject nowPlayingJSON) {

@@ -16,7 +16,7 @@ public class PostOffice extends Handler {
 
     final public int RECEIVED_PROGRAM_LIST = 1 ;
     final public int RECEIVED_PROGRAM_INFO = 2;
-
+    final public int PROGRAM_CLICKED = 3;
 
     public void setPostOfficeMessenger(PostOfficeMessenger postOfficeMessenger) {
         this.postOfficeMessenger = postOfficeMessenger;
@@ -29,10 +29,8 @@ public class PostOffice extends Handler {
                 postOfficeMessenger.onProgramListReceived();
                 break;
             case RECEIVED_PROGRAM_INFO:
-
                 postOfficeMessenger.onProgramInfoReceived();
                 break;
-
         }
         super.handleMessage(msg);
     }
