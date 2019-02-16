@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity implements ProgramListFragme
     public static ProgramList programList;
     public static String idNowOnAir;
 
-    TempData tempData = new TempData();
 
 
     @Override
@@ -165,7 +164,6 @@ public class MainActivity extends AppCompatActivity implements ProgramListFragme
         super.onPause();
 
         Activity activity = this;
-        tempData.activity = activity;
     }
 
     @Override
