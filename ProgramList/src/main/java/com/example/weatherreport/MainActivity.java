@@ -1,6 +1,5 @@
 package com.example.weatherreport;
 
-import android.app.Activity;
 import android.net.Uri;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
@@ -26,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements ProgramListFragme
     public static String idNowOnAir;
 
     static ProgramListPageAdapter programListPageAdapter;
+    ViewPager viewPager;
 
 
     @Override
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements ProgramListFragme
 
         }
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
         FragmentManager fragmentManager = getSupportFragmentManager();
         programListPageAdapter = new ProgramListPageAdapter(fragmentManager);
         viewPager.setAdapter(programListPageAdapter);
@@ -128,22 +128,23 @@ public class MainActivity extends AppCompatActivity implements ProgramListFragme
 
                 programListPageAdapter.replacePage(new ProgramListFragment(),0);
 
- //               ProgramListFragment programListFragment = new ProgramListFragment();
- //               getSupportFragmentManager().beginTransaction().replace(R.id.containerForFragment, programListFragment).commit();
-
             }
 
             @Override
             public void onProgramInfoReceived() {
                 programListPageAdapter.removeInfoPage();
-                programListPageAdapter.replacePage(new ProgramInfoFragment(),1);
-                viewPager.arrowScroll(View.FOCUS_RIGHT);
-
-  //              ProgramInfoFragment programInfoFragment = new ProgramInfoFragment();
-  //              getSupportFragmentManager().beginTransaction().replace(R.id.containerForFragment,programInfoFragment).commit();
-
+                programListPageAdapter.replacePage(new ProgramInfoFragment(), 1);
+                viewPager.setCurrentItem(1);
             }
 
+            @Override
+            public void onBackKeyPressed() {
+                viewPager.setCurrentItem(0);
+            }
+
+            @Override
+            public void onProgramClicked() {
+            }
         });
 
 
@@ -177,15 +178,23 @@ public class MainActivity extends AppCompatActivity implements ProgramListFragme
     @Override
     protected void onPause() {
         super.onPause();
-
-        Activity activity = this;
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        programListJSON = null;
-        ProgramListPageAdapter.arrayListFragment = new ArrayList<>();
+
+
+        if(viewPager.getCurrentItem()==0){
+            programListJSON = null;
+            ProgramListPageAdapter.arrayListFragment = new ArrayList<>();
+            super.onBackPressed();
+
+        }else if(viewPager.getCurrentItem()==1) {
+            PostOffice postOffice = new PostOffice();
+            Message msg = new Message();
+            msg.arg1 = postOffice.BACK_KEY_PRESSED;
+            postOffice.sendMessage(msg);
+        }
     }
 
     @Override

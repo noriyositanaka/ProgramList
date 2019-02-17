@@ -1,12 +1,12 @@
 package com.example.weatherreport;
 
-import android.arch.lifecycle.ViewModelProvider;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -36,14 +35,9 @@ import java.util.Iterator;
 public class ProgramInfoFragment extends Fragment {
 
     private ProgramInfoViewModel programInfoViewModel;
-
-
-
     public ProgramInfoViewModel getProgramInfoViewModel() {
         return programInfoViewModel;
     }
-
-
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -90,6 +84,10 @@ public class ProgramInfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_program_info, container, false);
                             /*
@@ -165,6 +163,23 @@ public class ProgramInfoFragment extends Fragment {
                     ここまで解読ルーチン
                      */
         }
+
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP){
+                    PostOffice postOffice = new PostOffice();
+                    Message msg = new Message();
+                    msg.arg1 = postOffice.BACK_KEY_PRESSED;
+                    postOffice.sendMessage(msg);
+
+                    return true;
+                }
+                return false;
+            }
+        });
             return view;
 
     }
@@ -213,4 +228,5 @@ public class ProgramInfoFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

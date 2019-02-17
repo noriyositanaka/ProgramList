@@ -54,9 +54,10 @@ public class ProgramListRecycleAdapter extends RecyclerView.Adapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 TextView t = v.findViewById(R.id.id);
                 String s = t.getText().toString();
+
+
 
                 AsyncHTTPConnection asyncHTTPConnection = new AsyncHTTPConnection();
                 asyncHTTPConnection.setHttpResultListener(new HTTPResultListener() {

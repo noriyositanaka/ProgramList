@@ -1,9 +1,7 @@
 package com.example.weatherreport;
 
-import android.content.SyncAdapterType;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentManager;
 
 
 public class PostOffice extends Handler {
@@ -16,7 +14,9 @@ public class PostOffice extends Handler {
 
     final public int RECEIVED_PROGRAM_LIST = 1 ;
     final public int RECEIVED_PROGRAM_INFO = 2;
-    final public int PROGRAM_CLICKED = 3;
+    final public int BACK_KEY_PRESSED = 3;
+    final public int PROGRAM_CLICKED =4;
+
 
     public void setPostOfficeMessenger(PostOfficeMessenger postOfficeMessenger) {
         this.postOfficeMessenger = postOfficeMessenger;
@@ -30,6 +30,12 @@ public class PostOffice extends Handler {
                 break;
             case RECEIVED_PROGRAM_INFO:
                 postOfficeMessenger.onProgramInfoReceived();
+                break;
+            case PROGRAM_CLICKED:
+                postOfficeMessenger.onProgramClicked();
+                break;
+            case BACK_KEY_PRESSED:
+                postOfficeMessenger.onBackKeyPressed();
                 break;
         }
         super.handleMessage(msg);
