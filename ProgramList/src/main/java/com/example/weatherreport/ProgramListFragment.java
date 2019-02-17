@@ -130,26 +130,27 @@ public class ProgramListFragment extends Fragment {
             Date Start = (Date)vv.getTag(R.id.program);
             System.out.println(Start.toString());
 */
+
+
+        ArrayList arrayList = MainActivity.programList.getArrayListProgramList();
+        int nowOnAirPosition =0;
+            HashMap<String, String> hashMap;
+
+            String id = MainActivity.idNowOnAir;
+            String s ;
+        int i= 0;
+            do{
+                hashMap=(HashMap)arrayList.get(i++);
+                s=(String)hashMap.get("id");
+
+            }while(MainActivity.idNowOnAir.equals(s) == false);
+            System.out.println(Integer.toString(i));
+            ((RecyclerView)getActivity().findViewById(R.id.recycleView)).getLayoutManager().scrollToPosition(i-1);
+
+
         }
     }
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (listState == null && MainActivity.programListJSON!=null) {
-            RecyclerView recyclerView = getActivity().findViewById(R.id.recycleView);
-
-            RecyclerView.Adapter adapter = recyclerView.getAdapter();
-            RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-
-            long id = adapter.getItemId(0);
-            int i = adapter.getItemCount();
-            System.out.println(i);
-
-
-             }
-    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
