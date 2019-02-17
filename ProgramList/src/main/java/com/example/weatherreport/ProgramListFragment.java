@@ -66,6 +66,7 @@ public class ProgramListFragment extends Fragment {
         ProgramListFragment fragment = new ProgramListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
+
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;

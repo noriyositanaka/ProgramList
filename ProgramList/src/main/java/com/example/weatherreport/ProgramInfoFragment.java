@@ -103,71 +103,70 @@ public class ProgramInfoFragment extends Fragment {
 
 
         int i = 0;
-        try {
-            i = MainActivity.programInfoJSON.getJSONObject("list").getJSONArray("g1").length();
-            for (int j = 0;j<i ; j++ ){
-                JSONObject program = MainActivity.programInfoJSON.getJSONObject("list").getJSONArray("g1").getJSONObject(j);
-                Iterator iterator = program.keys();
-                String key;
-                hashMap = new HashMap<>();
-                while(iterator.hasNext()){
-                    key = iterator.next().toString();
-                    hashMap.put(key,program.getString(key));
+        if (MainActivity.programInfoJSON !=null) {
+            try {
+
+                i = MainActivity.programInfoJSON.getJSONObject("list").getJSONArray("g1").length();
+                for (int j = 0; j < i; j++) {
+                    JSONObject program = MainActivity.programInfoJSON.getJSONObject("list").getJSONArray("g1").getJSONObject(j);
+                    Iterator iterator = program.keys();
+                    String key;
+                    hashMap = new HashMap<>();
+                    while (iterator.hasNext()) {
+                        key = iterator.next().toString();
+                        hashMap.put(key, program.getString(key));
+                    }
+
+                    String startTimeISO = hashMap.get("start_time");
+                    String endTimeISO = hashMap.get("end_time");
+
+                    String s = new String();
+                    String ee = new String();
+
+                    Date Start, End;
+                    try {
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+                        Start = simpleDateFormat.parse(startTimeISO);
+                        End = simpleDateFormat.parse(endTimeISO);
+
+                        s = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG).format(Start);
+                        ee = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG).format(End);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    TextView id = view.findViewById((R.id.text_info_id));
+                    TextView title = view.findViewById(R.id.text_info_title);
+                    TextView start_time = view.findViewById(R.id.text_info_start_time);
+                    TextView end_time = view.findViewById(R.id.text_info_end_time);
+                    TextView subtitle = view.findViewById(R.id.text_info_subtitle);
+                    TextView content = view.findViewById(R.id.text_info_content);
+                    TextView act = view.findViewById(R.id.text_info_act);
+
+
+                    id.setText(hashMap.get("id"));
+                    title.setText(hashMap.get("title"));
+                    subtitle.setText(hashMap.get("subtitle"));
+                    content.setText(hashMap.get("content"));
+                    act.setText(hashMap.get("act"));
+
+                    start_time.setText(s);
+                    end_time.setText(ee);
+
+                    arrayList.add(hashMap);
                 }
-
-                String startTimeISO = hashMap.get("start_time");
-                String endTimeISO = hashMap.get("end_time");
-
-                String s = new String();
-                String ee = new String();
-
-                Date Start, End;
-                try {
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
-                    Start = simpleDateFormat.parse(startTimeISO);
-                    End = simpleDateFormat.parse(endTimeISO);
-
-                    s = DateFormat.getDateTimeInstance(DateFormat.LONG,DateFormat.LONG).format(Start);
-                    ee = DateFormat.getDateTimeInstance(DateFormat.LONG,DateFormat.LONG).format(End);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-
-
-                TextView id = view.findViewById((R.id.text_info_id));
-                TextView title = view.findViewById(R.id.text_info_title);
-                TextView start_time = view.findViewById(R.id.text_info_start_time);
-                TextView end_time = view.findViewById(R.id.text_info_end_time);
-                TextView subtitle = view.findViewById(R.id.text_info_subtitle);
-                TextView content = view.findViewById(R.id.text_info_content);
-                TextView act = view.findViewById(R.id.text_info_act);
-
-
-                id.setText(hashMap.get("id"));
-                title.setText(hashMap.get("title"));
-                subtitle.setText(hashMap.get("subtitle"));
-                content.setText(hashMap.get("content"));
-                act.setText(hashMap.get("act"));
-
-                start_time.setText(s);
-                end_time.setText(ee);
-
-                arrayList.add(hashMap);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
 
                     /*
                     ここまで解読ルーチン
                      */
+        }
+            return view;
 
-
-
-
-        return view;
     }
 
     @Override

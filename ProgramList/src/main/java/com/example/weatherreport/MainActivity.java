@@ -3,11 +3,11 @@ package com.example.weatherreport;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements ProgramListFragme
     public static ProgramList programList;
     public static String idNowOnAir;
 
+    static ProgramListPageAdapter programListPageAdapter;
 
 
     @Override
@@ -80,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements ProgramListFragme
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
+
                 }
             });
             asyncHTTPConnection.execute(AsyncHTTPConnection.COMMAND_GET_PROGRAM_LIST);
@@ -99,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements ProgramListFragme
                         e.printStackTrace();
                     }
 
-                    System.out.println(idNowOnAir);
 
 
                 }
@@ -108,24 +110,37 @@ public class MainActivity extends AppCompatActivity implements ProgramListFragme
 
         }
 
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        programListPageAdapter = new ProgramListPageAdapter(fragmentManager);
+        viewPager.setAdapter(programListPageAdapter);
 
-        PostOffice postOffice = new PostOffice();
+
+        final PostOffice postOffice = new PostOffice();
         postOffice.setPostOfficeMessenger(new PostOfficeMessenger() {
+
+
+
 
 
             @Override
             public void onProgramListReceived() {
 
-                ProgramListFragment programListFragment = new ProgramListFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.containerForFragment, programListFragment).commit();
+                programListPageAdapter.replacePage(new ProgramListFragment(),0);
+
+ //               ProgramListFragment programListFragment = new ProgramListFragment();
+ //               getSupportFragmentManager().beginTransaction().replace(R.id.containerForFragment, programListFragment).commit();
 
             }
 
             @Override
             public void onProgramInfoReceived() {
+                programListPageAdapter.removeInfoPage();
+                programListPageAdapter.replacePage(new ProgramInfoFragment(),1);
+                viewPager.arrowScroll(View.FOCUS_RIGHT);
 
-                ProgramInfoFragment programInfoFragment = new ProgramInfoFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.containerForFragment,programInfoFragment).commit();
+  //              ProgramInfoFragment programInfoFragment = new ProgramInfoFragment();
+  //              getSupportFragmentManager().beginTransaction().replace(R.id.containerForFragment,programInfoFragment).commit();
 
             }
 
@@ -170,6 +185,7 @@ public class MainActivity extends AppCompatActivity implements ProgramListFragme
     public void onBackPressed() {
         super.onBackPressed();
         programListJSON = null;
+        ProgramListPageAdapter.arrayListFragment = new ArrayList<>();
     }
 
     @Override
